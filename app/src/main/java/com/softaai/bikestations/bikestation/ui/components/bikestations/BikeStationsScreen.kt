@@ -45,8 +45,8 @@ fun BikeStationsScreen(
                             .fillMaxSize()
                             .clickable {
                                 navController.navigate(
-                                    route = Screen.BikeStationDetailsScreen.route //+
-    //                                            "/${bikeStation.id}"
+                                    route = Screen.BikeStationDetailsScreen.route +
+                                                "/${bikeStations.indexOf(bikeStation)}"
                                 )
                             }
                     )
