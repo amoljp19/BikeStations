@@ -11,7 +11,6 @@ interface BikeStationsApiService {
     suspend fun getBikeStationsApiResponse(
         @Query("mtype") mType: String,
         @Query("co") co: String
-    )
-            : Response<BikeStationsApiResponse>
+    ): Response<BikeStationsApiResponse>
 
 }
