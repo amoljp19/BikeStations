@@ -36,6 +36,6 @@ class BikeStationsNetworkModule {
         .create(BikeStationsApiService::class.java)
 
     companion object {
-        const val BASE_URL: String = "http://www.poznan.pl/mim/plan/"
+        const val BASE_URL: String = "http://www.poznan.pl/mim/plan/"    //use https instead of http to avoid cleartext error
     }
 }
