@@ -9,17 +9,14 @@ import retrofit2.Response
 import javax.inject.Inject
 
 interface BikeStationsRepository {
-    fun getAllBikeStations(mType: String, co: String): Flow<Resource<BikeStationsApiResponse>>
+    fun getAllBikeStations(): Flow<Resource<BikeStationsApiResponse>>
 }
 
 class DefaultBikeStationsRepository @Inject constructor(
     private val bikeStationsApiService: BikeStationsApiService
 ) : BikeStationsRepository {
 
-    override fun getAllBikeStations(
-        mType: String,
-        co: String
-    ): Flow<Resource<BikeStationsApiResponse>> {
+    override fun getAllBikeStations(): Flow<Resource<BikeStationsApiResponse>> {
         return object :
             NetworkBoundRepository<BikeStationsApiResponse, BikeStationsApiResponse>() {
 
@@ -27,7 +24,7 @@ class DefaultBikeStationsRepository @Inject constructor(
                 flowOf(fetchFromRemote().body()!!)
 
             override suspend fun fetchFromRemote(): Response<BikeStationsApiResponse> =
-                bikeStationsApiService.getBikeStationsApiResponse(mType, co)
+                bikeStationsApiService.getBikeStationsApiResponse(mType = "pub_transport", co = "stacje_rowerowe")
 
         }.asFlow()
     }
