@@ -24,7 +24,10 @@ class DefaultBikeStationsRepository @Inject constructor(
                 flowOf(fetchFromRemote().body()!!)
 
             override suspend fun fetchFromRemote(): Response<BikeStationsApiResponse> =
-                bikeStationsApiService.getBikeStationsApiResponse(mType = "pub_transport", co = "stacje_rowerowe")
+                bikeStationsApiService.getBikeStationsApiResponse(
+                    mType = "pub_transport",
+                    co = "stacje_rowerowe"
+                )
 
         }.asFlow()
     }

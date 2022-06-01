@@ -24,18 +24,20 @@ class BikeStationsNetworkModule {
 
     @Singleton
     @Provides
-    fun provideRetrofitService(okHttpClient: OkHttpClient): BikeStationsApiService = Retrofit.Builder()
-        .baseUrl(BASE_URL)
-        .addConverterFactory(
-            MoshiConverterFactory.create(
-                Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+    fun provideRetrofitService(okHttpClient: OkHttpClient): BikeStationsApiService =
+        Retrofit.Builder()
+            .baseUrl(BASE_URL)
+            .addConverterFactory(
+                MoshiConverterFactory.create(
+                    Moshi.Builder().add(KotlinJsonAdapterFactory()).build()
+                )
             )
-        )
-        .client(okHttpClient)
-        .build()
-        .create(BikeStationsApiService::class.java)
+            .client(okHttpClient)
+            .build()
+            .create(BikeStationsApiService::class.java)
 
     companion object {
-        const val BASE_URL: String = "http://www.poznan.pl/mim/plan/"    //use https instead of http to avoid cleartext error
+        const val BASE_URL: String =
+            "http://www.poznan.pl/mim/plan/"    //use https instead of http to avoid cleartext error
     }
 }

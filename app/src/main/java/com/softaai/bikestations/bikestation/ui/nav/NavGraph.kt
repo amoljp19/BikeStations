@@ -30,7 +30,7 @@ fun SetupNavGraph(
 
         composable(
             route = Screen.BikeStationDetailsScreen.route
-             +
+                    +
                     "/{id}",
             arguments = listOf(
                 navArgument(
