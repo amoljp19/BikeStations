@@ -1,4 +1,4 @@
-package com.softaai.bikestations.ui.theme
+package com.softaai.bikestations.bikestation.ui.theme
 
 import androidx.compose.material3.Typography
 import androidx.compose.ui.text.TextStyle
