@@ -56,7 +56,7 @@ class MainActivity : ComponentActivity() {
                     Toast.LENGTH_SHORT
                 ).show()
                 is State.Success -> {
-                    Toast.makeText(applicationContext, " " + state.data, Toast.LENGTH_SHORT).show()
+                    Toast.makeText(applicationContext, " " + state.data.features, Toast.LENGTH_SHORT).show()
                 }
                 is State.Error -> {
                     Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT)

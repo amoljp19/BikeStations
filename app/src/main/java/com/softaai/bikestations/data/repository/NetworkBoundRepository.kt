@@ -11,9 +11,9 @@ abstract class NetworkBoundRepository<RESULT, REQUEST> {
 
         val apiResponse = fetchFromRemote()
 
-        val remoteHoldings = apiResponse.body()
+        val remoteBikeStations = apiResponse.body()
 
-        if (apiResponse.isSuccessful && remoteHoldings != null) {
+        if (apiResponse.isSuccessful && remoteBikeStations != null) {
             emitAll(
                 emitFromRemote().map {
                     Resource.Success<RESULT>(it)
