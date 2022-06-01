@@ -15,7 +15,7 @@ import kotlinx.coroutines.launch
 import javax.inject.Inject
 
 @HiltViewModel
-class MainViewModel @Inject constructor(private val bikeStationsRepository: BikeStationsRepository) :
+class BikeStationsViewModel @Inject constructor(private val bikeStationsRepository: BikeStationsRepository) :
     ViewModel() {
 
     private val _bikeStationsLiveData = MutableLiveData<State<BikeStationsApiResponse>>()
@@ -31,6 +31,12 @@ class MainViewModel @Inject constructor(private val bikeStationsRepository: Bike
                 .onStart { _bikeStationsLiveData.value = State.loading() }
                 .map { resource -> State.fromResource(resource) }
                 .collect { state -> _bikeStationsLiveData.value = state }
+        }
+    }
+
+    fun setHoldings(list: List<Feature>) {
+        viewModelScope.launch {
+            _bikeStations.value = list
         }
     }
 }

@@ -7,13 +7,15 @@ import androidx.navigation.NavType
 import androidx.navigation.compose.NavHost
 import androidx.navigation.compose.composable
 import androidx.navigation.navArgument
-import com.softaai.bikestations.bikestation.ui.components.BikeStationDetailsScreen
 import com.softaai.bikestations.bikestation.ui.components.BikeStationsScreen
+import com.softaai.bikestations.bikestation.ui.components.bikestationdetails.BikeStationDetailsScreen
+import com.softaai.bikestations.bikestation.viewmodel.BikeStationsViewModel
 
 @ExperimentalComposeUiApi
 @Composable
 fun SetupNavGraph(
-    navController: NavHostController
+    navController: NavHostController,
+    mViewModel: BikeStationsViewModel
 ) {
 
     NavHost(
@@ -23,7 +25,7 @@ fun SetupNavGraph(
         composable(
             route = Screen.BikeStationsScreen.route
         ) {
-            BikeStationsScreen()
+            BikeStationsScreen(navController, mViewModel)
         }
 
         composable(
