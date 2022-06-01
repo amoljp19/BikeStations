@@ -1,15 +1,25 @@
 package com.softaai.bikestations.bikestation.ui.components.bikestationdetails
 
+import android.graphics.Bitmap
+import androidx.compose.foundation.Image
 import androidx.compose.foundation.layout.*
 import androidx.compose.material.MaterialTheme
 import androidx.compose.material3.Text
-import androidx.compose.runtime.Composable
+import androidx.compose.runtime.*
 import androidx.compose.ui.Modifier
+import androidx.compose.ui.graphics.asImageBitmap
+import androidx.compose.ui.semantics.Role.Companion.Image
 import androidx.compose.ui.text.style.TextOverflow
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.compose.ui.unit.dp
+import androidx.compose.ui.viewinterop.AndroidView
 import androidx.navigation.NavController
+import com.google.android.gms.maps.MapView
+import com.google.android.gms.maps.model.CameraPosition
+import com.google.android.gms.maps.model.LatLng
+import com.google.maps.android.compose.*
 import com.softaai.bikestations.model.Feature
+import kotlinx.coroutines.launch
 
 @Composable
 fun BikeStationDetailsScreen(
@@ -27,8 +37,24 @@ fun BikeStationDetailsScreen(
             modifier = Modifier
                 .fillMaxSize()
                 .padding(16.dp)
-                .padding(end = 32.dp)
+                .padding(16.dp)
         ) {
+
+            val latlong = LatLng(bikeStations.get(id.toInt()).geometry.coordinates[0], bikeStations.get(id.toInt()).geometry.coordinates[1])
+            val cameraPositionState = rememberCameraPositionState {
+                position = CameraPosition.fromLatLngZoom(latlong, 10f)
+            }
+            GoogleMap(
+                modifier = Modifier.height(360.dp),
+                cameraPositionState = cameraPositionState,
+            ) {
+                Marker(
+                    state = MarkerState(position = latlong),
+                    title = bikeStation.label,
+                    snippet = "Marker in ${bikeStation.label}"
+                )
+            }
+            Spacer(modifier = Modifier.height(8.dp))
             Text(
                 text = bikeStation.label,
                 style = MaterialTheme.typography.h6,
@@ -56,10 +82,7 @@ fun BikeStationDetailsScreen(
     }
 }
 
-@Composable
-fun Greeting(name: String) {
-    androidx.compose.material3.Text(text = "Hello $name!")
-}
+
 
 @Preview(showSystemUi = true)
 @Composable
