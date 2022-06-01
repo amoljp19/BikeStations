@@ -10,12 +10,13 @@ import androidx.compose.material3.MaterialTheme
 import androidx.compose.material3.Surface
 import androidx.compose.material3.Text
 import androidx.compose.runtime.Composable
+import androidx.compose.runtime.getValue
+import androidx.compose.runtime.livedata.observeAsState
 import androidx.compose.ui.ExperimentalComposeUiApi
 import androidx.compose.ui.Modifier
 import androidx.compose.ui.tooling.preview.Preview
 import androidx.navigation.NavHostController
 import androidx.navigation.compose.rememberNavController
-import com.softaai.bikestations.bikestation.ui.components.BikeStationsScreen
 import com.softaai.bikestations.bikestation.ui.nav.SetupNavGraph
 import com.softaai.bikestations.bikestation.ui.theme.BikeStationsTheme
 import com.softaai.bikestations.bikestation.viewmodel.BikeStationsViewModel
@@ -42,14 +43,15 @@ class MainActivity : ComponentActivity() {
                     getBikeStationsList()
                     navController = rememberNavController()
 
-                    SetupNavGraph(navController = navController, mViewModel)
+                    val bikeStations by mViewModel.bikeStations.observeAsState()
+                    bikeStations?.let { SetupNavGraph(navController = navController, it) }
                 }
             }
         }
     }
 
-    override fun onStart() {
-        super.onStart()
+    override fun onResume() {
+        super.onResume()
         observeBikeStationsLiveData()
     }
 
@@ -71,10 +73,6 @@ class MainActivity : ComponentActivity() {
                         Toast.LENGTH_SHORT
                     ).show()
                     mViewModel.setHoldings(state.data.features)
-                    setContent {
-                        BikeStationsScreen(navController = navController, mViewModel = mViewModel)
-                    }
-
                 }
                 is State.Error -> {
                     Toast.makeText(applicationContext, " " + state.message, Toast.LENGTH_SHORT)

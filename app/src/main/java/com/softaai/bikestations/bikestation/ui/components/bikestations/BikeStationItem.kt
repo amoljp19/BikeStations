@@ -34,7 +34,15 @@ fun BikeStationItem(
             )
             Spacer(modifier = Modifier.height(8.dp))
             Text(
-                text = bikeStation.updated,
+                text = "Available bikes : ${bikeStation.bikeRacks}",
+                style = MaterialTheme.typography.body1,
+                color = MaterialTheme.colors.onSurface,
+                maxLines = 10,
+                overflow = TextOverflow.Ellipsis
+            )
+            Spacer(modifier = Modifier.height(8.dp))
+            Text(
+                text = "Available places : ${bikeStation.freeRacks}",
                 style = MaterialTheme.typography.body1,
                 color = MaterialTheme.colors.onSurface,
                 maxLines = 10,
